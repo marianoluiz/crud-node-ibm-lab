@@ -45,3 +45,6 @@ Exercise 7: Implementing Authentication
   secret - a random unique string key used to authenticate a session.
   resave - takes a Boolean value. It enables the session to be stored back to the session store, even if the session was never modified during the request.
   saveUninitialized - this allows any uninitialized session to be sent to the store. When a session is created but not modified, it is referred to as uninitialized.
+
+
+  use postman to test stuffs
