@@ -48,3 +48,22 @@ Exercise 7: Implementing Authentication
 
 
   use postman to test stuffs
+
+  in package.json
+
+  "start_auth": "nodemon index_withauth.js"
+
+
+  npm run start_auth
+
+  "this is to for it reset every change happened using the nodemon"
+
+  login with POST REQ
+
+  {
+      "user":{
+          "name":"abc",
+          "id":1
+      }
+  } 
+
