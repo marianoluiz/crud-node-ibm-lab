@@ -7,6 +7,7 @@ const PORT = 5000;
 // Use JSON parsing middleware and user routes
 app.use(express.json());
 app.use("/user", routes);
+ //use the routes defined in the routes module for any requests that start with /user.
 
 // Start the server and log a message when it's running
 app.listen(PORT, () => console.log("Server is running at port " + PORT));
