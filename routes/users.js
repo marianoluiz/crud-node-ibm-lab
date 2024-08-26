@@ -22,15 +22,11 @@ let users = [
     },
 ];
 
-
-
-
-
 // GET request: Retrieve all users
 // Define a route handler for GET requests to the root path "/"
 router.get("/",(req,res)=>{
   console.log("GET request received at /users");
-  // Send a JSON response containing the users array, formatted with an indentation of 4 spaces for readability
+  // Send a JSON response containing the user array, formatted with an indentation of 4 spaces for readability
   res.send(JSON.stringify({users}, null, 4));
 
   //res.json({ users });
