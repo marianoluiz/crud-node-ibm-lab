@@ -67,3 +67,8 @@ Exercise 7: Implementing Authentication
       }
   } 
 
+loggin in with curl:
+
+curl.exe -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{\"user\": {\"name\": \"abc\", \"id\": 1}}'
+
+The backslash (\) is used as an escape  special  characters

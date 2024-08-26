@@ -6,15 +6,26 @@ const session = require('express-session');
 const app = express();
 const PORT = 5000;
 
-//you will see a lot of .use(); these are not called manually. Instead, they are automatically executed by the Express.js framework when a request is received.
+//you will see a lot of .use(); these are not called manually. Instead, they are automatically executed by the Express.js framework when a request is received.  This method is used to mount middleware functions in an Express application. Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. These functions can perform any operations, make changes to the request and the response objects, end the request-response cycle, and call the next middleware function in the stack.
 
 // Parse JSON request bodies
 app.use(express.json());
 
+
+/* with the express-session middleware, the session ID is generated automatically. */
+
 // Initialize session middleware
-app.use(session({secret:"fingerprint",resave: true, saveUninitialized: true}))
+app.use(session({
+    secret:"fingerprint", //This is a secret key used to sign the session ID cookie. This key is used to prevent tampering with the session ID cookie.
 
+    // if session id is abc123... The session ID and the signature are combined to form the signed cookie, which might look like abc123.hmacSHA256_signature
 
+    resave: true, //forces the session to be saved back to the session store, even if it wasn't modified during the request. This could be:  In-Memory Store: If no store is specified, EXPRESS sessions are stored in the server's memory (RAM (Random Access Memory) of the server where your application is running); Database Store; Cache Store; File Store. 
+
+    //storing session is important so that user can remain logged in as they navigate through different pages of the application without having to log in again on each page. preferences as well would stored, cart items would be save, forms input would be save.
+
+     saveUninitialized: true //forces a session that is "uninitialized" to be saved to the store. A session is uninitialized when it is new but not modified.
+    })) // manage user sessions
 
 // Middleware for user authentication
 // All the endpoints starting with /user will go through this middleware
@@ -35,7 +46,6 @@ app.use("/user", (req, res, next) => {
                 req.user = user; // Set authenticated user data on the request object
 
                 //Before the line req.user = user; is executed, req.user is typically undefined unless it has been set by some previous middleware or route handler. In most cases, req.user is not set until the JWT verification middleware assigns the decoded token payload to it.
-
                 next(); // Proceed to the next middleware
             } else {
                 console.log("not authenticated")
@@ -72,7 +82,7 @@ app.post("/login", (req, res) => {
         accessToken
     }
     //This access token is set into the session object. only authenticated users can access the endpoints for that length of time.
-
+    console.log("logged in successfully")
     return res.status(200).send("User successfully logged in");
 });
 
